@@ -61,7 +61,7 @@ jobs:
         run: yarn export
 
       - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
