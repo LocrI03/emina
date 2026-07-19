@@ -36,14 +36,9 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Validate Notion configuration
-        env:
-          NOTION_PAGE_ID: ${{ secrets.NOTION_PAGE_ID }}
-        run: test -n "$NOTION_PAGE_ID"
-
       - name: Build static website
         env:
-          NOTION_PAGE_ID: ${{ secrets.NOTION_PAGE_ID }}
+          NOTION_PAGE_ID: 6e34c822d2328201881f01970eb7b084
           EXPORT: 'true'
           NEXT_PUBLIC_THEME: photo
           NEXT_PUBLIC_LANG: zh-CN
