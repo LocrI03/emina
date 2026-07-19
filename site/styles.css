@@ -99,7 +99,7 @@ button { font:inherit; }
 .filters button.active { background:var(--ink); border-color:var(--ink); color:white; }
 .filters button.active span { background:var(--acid); color:var(--ink); }
 .works-empty { min-height:390px; border:1px dashed #c8c8c1; background:#f7f7f3; display:flex; align-items:center; justify-content:center; gap:22px; color:#777; }
-.works-empty.compact { min-height:260px; }
+.works-empty.compact { min-height:150px; }
 .empty-mark { width:58px; height:58px; border:1px solid #c8c8c1; border-radius:50%; display:grid; place-items:center; font-size:25px; color:#a0a098; }
 .works-empty strong { display:block; color:#444; font-size:18px; margin-bottom:8px; }
 .works-empty p { margin:0; font-size:13px; }
