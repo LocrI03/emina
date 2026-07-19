@@ -24,44 +24,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: yarn
-
-      - name: Install Yarn
-        run: npm install --global yarn@1.22.22
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build static website
-        env:
-          NOTION_PAGE_ID: 6e34c822d2328201881f01970eb7b084
-          EXPORT: 'true'
-          NEXT_PUBLIC_THEME: photo
-          NEXT_PUBLIC_LANG: zh-CN
-          NEXT_PUBLIC_AUTHOR: Emina次元
-          NEXT_PUBLIC_BIO: 内容运营与 ACG 内容创作者
-          NEXT_PUBLIC_LINK: https://emina.cn
-          NEXT_PUBLIC_KEYWORD: Emina次元,ACG,内容创作,头像,封面,表情包,视频
-          NEXT_PUBLIC_FAVICON: /emina/favicon.svg
-          NEXT_PUBLIC_CONTACT_EMAIL: g1309157526@gmail.com
-          NEXT_PUBLIC_CONTACT_BILIBILI: https://space.bilibili.com/3546883291089860
-          NEXT_PUBLIC_CONTACT_XIAOHONGSHU: https://www.xiaohongshu.com/user/profile/5d33150b0000000011005ec6
-          NEXT_PUBLIC_WIDGET_PET: 'false'
-          NEXT_PUBLIC_THEME_SWITCH: 'false'
-          NEXT_PUBLIC_ENABLE_RSS: 'false'
-        run: yarn export
-
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: out
+          path: site
 
   deploy:
     environment:
