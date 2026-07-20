@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src https://api.github.com; frame-ancestors 'none'; base-uri 'none'; form-action 'none'">
+  <title>Emina 网站管理</title>
+  <link rel="icon" href="../favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="manager-header">
+    <div>
+      <p class="kicker">EMINA / SITE MANAGER</p>
+      <h1>网站管理</h1>
+      <p>上传与排序图片，也可以直接修改主页文案和链接。</p>
+    </div>
+    <a href="../" target="_blank" rel="noreferrer">查看主页 ↗</a>
+  </header>
+
+  <section class="auth-card" id="auth-card">
+    <div>
+      <span class="step">01</span>
+      <h2>连接 GitHub</h2>
+      <p>使用仅授权 <b>LocrI03/emina</b>、Contents 读写权限的精细令牌。令牌只保留到当前页面关闭。</p>
+    </div>
+    <div class="auth-form">
+      <label for="token">GitHub 精细令牌</label>
+      <div class="token-row">
+        <input id="token" type="password" autocomplete="off" data-1p-ignore placeholder="github_pat_…">
+        <button id="connect" type="button">连接</button>
+      </div>
+      <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer">创建精细令牌 ↗</a>
+      <p class="status" id="auth-status" role="status"></p>
+    </div>
+  </section>
+
+  <main id="manager" hidden>
+    <nav class="manager-tabs" aria-label="管理功能">
+      <button class="active" type="button" data-tab="images">图片管理</button>
+      <button type="button" data-tab="content">文字管理</button>
+      <span id="save-state">尚未修改</span>
+    </nav>
+
+    <section class="tab-panel active" data-panel="images">
+      <div class="panel-heading">
+        <div><span class="step">02</span><h2>图片管理</h2></div>
+        <button class="primary" id="save-images" type="button">保存图片修改</button>
+      </div>
+      <div class="category-tabs" id="category-tabs"></div>
+      <div class="image-layout">
+        <aside class="upload-card" id="upload-card">
+          <h3>上传到“<span id="upload-category">头像</span>”</h3>
+          <label class="drop-zone" id="drop-zone" for="file-input">
+            <strong>拖入图片或点击选择</strong>
+            <span>支持 JPG、PNG、WebP、GIF，可一次选择多张</span>
+            <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple>
+          </label>
+          <p id="upload-note">上传后会自动压缩，越晚添加的图片排在越后面。</p>
+        </aside>
+        <div>
+          <p class="order-tip">拖动图片调整顺序；手机上可使用箭头移动。删除只会从主页隐藏。</p>
+          <div class="image-list" id="image-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="content">
+      <div class="panel-heading sticky-heading">
+        <div><span class="step">03</span><h2>文字管理</h2></div>
+        <button class="primary" id="save-content" type="button">保存文字修改</button>
+      </div>
+      <div class="content-form" id="content-form"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>

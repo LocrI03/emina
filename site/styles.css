@@ -19,6 +19,7 @@ button { font:inherit; }
 .shell { width:min(1180px, calc(100% - 48px)); margin:0 auto; }
 .nav { height:88px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:10; }
 .brand { display:flex; gap:11px; align-items:center; font-weight:900; letter-spacing:-.03em; font-size:18px; }
+.brand b,.eyebrow b,.hero h1 b { font:inherit; }
 .brand i { color:#7d7f76; font-style:normal; font-weight:600; }
 .brand-mark { width:34px; height:34px; display:grid; place-items:center; background:var(--ink); color:var(--acid); border-radius:50%; font-family:Georgia,serif; font-style:italic; }
 .nav-links { display:flex; gap:36px; font-size:14px; font-weight:600; }
