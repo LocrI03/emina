@@ -21,11 +21,27 @@ const works = {
     "meme-17.jpg", "meme-18.webp", "meme-19.jpg", "meme-20.webp",
     "meme-21.webp",
   ],
+  摄影: [],
 };
 
 for (const [category, files] of Object.entries(works)) {
   const gallery = document.querySelector(`[data-gallery="${category}"]`);
   if (!gallery) continue;
+  const count = document.querySelector(`[data-category="${category}"] span`);
+  if (count) count.textContent = String(files.length);
+  const section = gallery.closest(".gallery-section");
+  for (const threshold of [2, 4, 6, 8]) {
+    section?.classList.toggle(`count-over-${threshold}`, files.length > threshold);
+  }
+  if (!files.length) {
+    const empty = document.createElement("div");
+    empty.className = "works-empty compact";
+    const message = document.createElement("strong");
+    message.textContent = "摄影作品待上传";
+    empty.append(message);
+    gallery.replaceWith(empty);
+    continue;
+  }
   files.forEach((file, index) => {
     const card = document.createElement("article");
     card.className = "gallery-card";
