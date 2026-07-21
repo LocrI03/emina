@@ -15,7 +15,10 @@ function applyContent(content) {
 
   for (const element of document.querySelectorAll("[data-copy]")) {
     const value = content.copy?.[element.dataset.copy];
-    if (typeof value === "string") element.textContent = value;
+    if (typeof value === "string") {
+      element.textContent = value;
+      element.classList.toggle("preserve-breaks", value.includes("\n"));
+    }
   }
   for (const element of document.querySelectorAll("[data-link]")) {
     const value = content.links?.[element.dataset.link];

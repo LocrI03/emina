@@ -178,10 +178,6 @@ async function loadJsonFile(path) {
 }
 
 async function commitFiles(files, message) {
-  const reference = await github(`/repos/${OWNER}/${REPO}/git/ref/heads/${BRANCH}`);
-  const parentSha = reference.object.sha;
-  const parentCommit = await github(`/repos/${OWNER}/${REPO}/git/commits/${parentSha}`);
-
   const entries = await Promise.all(files.map(async file => {
     const blob = await github(`/repos/${OWNER}/${REPO}/git/blobs`, {
       method: "POST",
@@ -190,18 +186,30 @@ async function commitFiles(files, message) {
     return { path: file.path, mode: "100644", type: "blob", sha: blob.sha };
   }));
 
-  const tree = await github(`/repos/${OWNER}/${REPO}/git/trees`, {
-    method: "POST",
-    body: JSON.stringify({ base_tree: parentCommit.tree.sha, tree: entries })
-  });
-  const commit = await github(`/repos/${OWNER}/${REPO}/git/commits`, {
-    method: "POST",
-    body: JSON.stringify({ message, tree: tree.sha, parents: [parentSha] })
-  });
-  await github(`/repos/${OWNER}/${REPO}/git/refs/heads/${BRANCH}`, {
-    method: "PATCH",
-    body: JSON.stringify({ sha: commit.sha, force: false })
-  });
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    const reference = await github(`/repos/${OWNER}/${REPO}/git/ref/heads/${BRANCH}`);
+    const parentSha = reference.object.sha;
+    const parentCommit = await github(`/repos/${OWNER}/${REPO}/git/commits/${parentSha}`);
+    const tree = await github(`/repos/${OWNER}/${REPO}/git/trees`, {
+      method: "POST",
+      body: JSON.stringify({ base_tree: parentCommit.tree.sha, tree: entries })
+    });
+    const commit = await github(`/repos/${OWNER}/${REPO}/git/commits`, {
+      method: "POST",
+      body: JSON.stringify({ message, tree: tree.sha, parents: [parentSha] })
+    });
+
+    try {
+      await github(`/repos/${OWNER}/${REPO}/git/refs/heads/${BRANCH}`, {
+        method: "PATCH",
+        body: JSON.stringify({ sha: commit.sha, force: false })
+      });
+      return;
+    } catch (error) {
+      const branchChanged = /not a fast forward/i.test(error.message);
+      if (!branchChanged || attempt === 2) throw error;
+    }
+  }
 }
 
 async function connect() {

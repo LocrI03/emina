@@ -53,6 +53,7 @@ button { font:inherit; }
 .hero-caption { position:absolute; z-index:4; right:0; bottom:5%; background:white; border:1px solid #ddd; padding:18px 22px; box-shadow:7px 7px 0 #222; display:flex; flex-direction:column; gap:5px; transform:rotate(-2deg); }
 .hero-caption b { font-size:14px; }
 .hero-caption span { color:#777; font-size:12px; }
+.preserve-breaks { white-space:pre-line; }
 .section { padding:110px 0; }
 .about { border-top:1px solid #c9c6bc; }
 .section-index { color:#888980; margin-bottom:36px; }
