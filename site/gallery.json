@@ -1,9 +1,6 @@
 {
   "头像": [
     {
-      "src": "works/restored/avatar-01.jpg"
-    },
-    {
       "src": "works/restored/avatar-02.jpg"
     },
     {
@@ -17,6 +14,9 @@
     },
     {
       "src": "works/restored/avatar-06.jpg"
+    },
+    {
+      "src": "works/restored/avatar-01.jpg"
     },
     {
       "src": "works/restored/avatar-07.jpg"
