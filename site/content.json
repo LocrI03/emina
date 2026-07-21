@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "ようこそEminaへ",
-    "description": "内容运营、ACG 内容制作、图片作品与视频合集。"
+    "title": "ようこそエミナへ",
+    "description": "emina个人网站"
   },
   "copy": {
     "brandName": "Emina",
@@ -11,7 +11,7 @@
     "navVideos": "视频",
     "navContact": "联系",
     "navEmail": "邮箱 ↗",
-    "heroEyebrow": "CONTENT · ACG · GAME · LANGUAGE",
+    "heroEyebrow": "CONTENT · ACG  · LANGUAGE",
     "heroTitleMain": "EMINA",
     "heroTitleAccent": "次元",
     "heroIntro": "欢迎来到我的小世界。\n我是 Emina，这里收录着我的兴趣、经历和一些喜欢",
