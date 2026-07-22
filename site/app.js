@@ -1,4 +1,5 @@
 const categories = ["头像", "封面", "表情包", "摄影"];
+document.documentElement.classList.add("motion-ready");
 
 async function loadJson(path) {
   const response = await fetch(`${path}?v=${Date.now()}`, { cache: "no-store" });
@@ -95,6 +96,44 @@ function setupGalleryControls() {
   }
 }
 
+function setupMotion() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const targets = document.querySelectorAll([
+    ".section-heading",
+    ".experience-overview > *",
+    ".experience-card",
+    ".skill-heading",
+    ".skills-band > *",
+    ".filters",
+    ".gallery-card",
+    ".video-group-heading",
+    ".collection-card",
+    ".single-video-card",
+    ".connect-inner > *",
+    ".footer > *"
+  ].join(","));
+
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach(target => target.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    }
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+  targets.forEach((target, index) => {
+    target.classList.add("reveal-item");
+    target.style.setProperty("--reveal-order", String(index % 4));
+    observer.observe(target);
+  });
+}
+
 async function start() {
   setupGalleryControls();
   const [contentResult, galleryResult] = await Promise.allSettled([
@@ -103,6 +142,7 @@ async function start() {
   ]);
   if (contentResult.status === "fulfilled") applyContent(contentResult.value);
   if (galleryResult.status === "fulfilled") renderGallery(galleryResult.value);
+  setupMotion();
 }
 
 start();
